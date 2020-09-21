@@ -1,6 +1,9 @@
 package com.example.bigimage;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,8 @@ public class ImagePreviewActivity extends AppCompatActivity {
     private ViewPager vp;
     private List<String> list;
     private int pos;
+    private Button imgBtn;
+    public static final int CODE_RESULT = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,9 @@ public class ImagePreviewActivity extends AppCompatActivity {
 
     private void initView() {
         vp = findViewById(R.id.image_vp);
+        imgBtn = findViewById(R.id.img_btn);
+
+
         if (getIntent() != null) {
             //获取图片的路径集合
             list = getIntent().getStringArrayListExtra("imgs");
@@ -40,21 +48,17 @@ public class ImagePreviewActivity extends AppCompatActivity {
         MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
         //绑定适配器
         vp.setAdapter(myViewPagerAdapter);
-        if(pos > 0) vp.setCurrentItem(pos);
-        vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        if (pos > 0) vp.setCurrentItem(pos);
+
+
+        //返回点击监听
+        imgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public void onClick(View view) {
+                Intent intent = getIntent();
+                intent.putExtra("path", "zzz");
+                setResult(CODE_RESULT,intent);
+                finish();
             }
         });
 

@@ -10,7 +10,9 @@
     <TextView
         android:id="@+id/btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:background="#D5D4D6"
+        android:gravity="center"
         android:text="按钮" />
 
 </LinearLayout>

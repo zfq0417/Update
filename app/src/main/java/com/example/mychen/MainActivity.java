@@ -2,10 +2,14 @@ package com.example.mychen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.bigimage.ImagePreviewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
         intent.setAction("imagepreview");
         intent.putStringArrayListExtra("imgs", (ArrayList<String>) list);
         intent.putExtra("pos", 1);
-        startActivity(intent);
+        startActivityForResult(intent, 1000);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == ImagePreviewActivity.CODE_RESULT) {
+            if (data != null) {
+                Log.d("TAG", data.getStringExtra("path"));
+            }
+        }
+
     }
 }
